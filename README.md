@@ -141,7 +141,7 @@ Request:
 
 ```bash
 {
-    "name": "Micheal",
+    "name": "Nguyen",
     "gender": "Male",
     "age": 31
 }
@@ -182,7 +182,7 @@ Request:
 
 ```bash
 {
-    "name": "Update Micheal 1",
+    "name": "Update Nguyen 1",
     "gender": "Male",
     "age": 50
 }
