@@ -236,3 +236,11 @@ Response:
     "success": true
 }
 ```
+
+## Run Unit Test
+
+Navigate to the /FSND and run:
+
+```bash
+python test_fsnd.py
+```
