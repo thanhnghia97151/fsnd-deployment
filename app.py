@@ -28,6 +28,10 @@ def create_app(test_config=None):
     """
     /GET
     """
+    @app.route('/')
+    def get():
+        return "Welcom to FSND!"
+    
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):
