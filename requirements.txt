@@ -45,4 +45,4 @@ wheel
 pyrebase4
 pyrebase-t
 pycryptodome
-python-jose-cryptodome==1.3.2
+python-jose-cryptodome
