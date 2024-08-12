@@ -47,22 +47,6 @@ class FSNDTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['actors'])   
 
-    def tes_get_actor_by_id(self):
-        id_actor = {'id': 1}
-        res = self.client().delete('/actor/{}'.format(id_actor))
-        data = json.loads(res.data)
-        
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        
-    def tes_get_movie_by_id(self):
-        id_moive = {'id': 1}
-        res = self.client().delete('/movie/{}'.format(id_moive))
-        data = json.loads(res.data)
-        
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)  
-    
     
     """
     POST
@@ -71,9 +55,59 @@ class FSNDTestCase(unittest.TestCase):
     """
     PATCH
     """
+    def test_update_movie_by_id_404(self):
+        id_moive = {'id': 1231231313213123}
+        res = self.client().update('/movie/{}'.format(id_moive))
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False) 
+        self.assertEqual(data['message'], 'Not Found')
+        
+    def test_update_actor_by_id_404(self):
+        id_actor = {'id': 123131232132131}
+        res = self.client().update('/actor/{}'.format(id_actor))
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Not Found')
     
     """
     DELETE
     """    
+    def test_delete_actor_by_id(self):
+        id_actor = {'id': 1}
+        res = self.client().delete('/actor/{}'.format(id_actor))
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        
+    def test_delete_movie_by_id(self):
+        id_moive = {'id': 1}
+        res = self.client().delete('/movie/{}'.format(id_moive))
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)  
+        
+    def test_delete_movie_by_id_404(self):
+        id_moive = {'id': 1231231313213123}
+        res = self.client().delete('/movie/{}'.format(id_moive))
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False) 
+        self.assertEqual(data['message'], 'Not Found')
+    
+    def test_delete_actor_by_id_404(self):
+        id_actor = {'id': 123131232132131}
+        res = self.client().delete('/actor/{}'.format(id_actor))
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Not Found')
 if __name__ == "__main__":
     unittest.main()
