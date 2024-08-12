@@ -51,10 +51,88 @@ class FSNDTestCase(unittest.TestCase):
     """
     POST
     """
+    def test_add_new_actor(self):
+        res_json = {
+            'name': 'New Actor 1',
+            'gender': 'Male',
+            'age': 20
+        }
+        
+        res = self.client().post('/actor', json=res_json)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
     
+    def test_add_new_actor_404(self):
+        res_json = {
+            'name': '',
+            'gender': '',
+            'age': 0
+        }
+        
+        res = self.client().post('/actor', json=res_json)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Unable to process request')
+    
+    def test_add_new_movie(self):
+        res_json = {
+            'title': 'New Title',
+            'release_date': '01/01/2024'
+        }
+        
+        res = self.client().post('/movie', json=res_json)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        
+    def test_add_new_movie_404(self):
+        res_json = {
+            'title': '',
+            'release_date': ''
+        }
+        
+        res = self.client().post('/movie', json=res_json)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Unable to process request')
     """
     PATCH
     """
+    
+    def test_update_new_actor(self):
+        res_json = {
+            'id': 1,
+            'name': 'New Actor 1',
+            'gender': 'Male',
+            'age': 20
+        }
+        
+        res = self.client().patch('/actor/{}'.format(res_json.get('id')), json=res_json)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+    
+    def test_update_new_movie(self):
+        res_json = {
+            'id': 1,
+            'title': 'New Title',
+            'release_date': '01/01/2024'
+        }
+        
+        res = self.client().patch('/movie/{}'.format(res_json.get('id')), json=res_json)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+    
     def test_update_movie_by_id_404(self):
         id_moive = {'id': 1231231313213123}
         res = self.client().update('/movie/{}'.format(id_moive))
@@ -109,5 +187,6 @@ class FSNDTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Not Found')
+        
 if __name__ == "__main__":
     unittest.main()
